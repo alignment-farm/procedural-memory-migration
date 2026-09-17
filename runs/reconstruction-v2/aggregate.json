@@ -1,0 +1,56 @@
+{
+  "request": {
+    "model": "docker.io/ai/qwen3:8B-Q4_K_M",
+    "messages": [
+      {
+        "role": "user",
+        "content": "From this complete source experience archive, derive ONE compact procedural card for future SQLite tasks in this family. Use at most 100 words, no headings or recap. Retain the executable query structure and critical edge cases; omit background explanation and task-specific identifiers/answers. Recommend checks only when the experience indicates they resolve uncertainty, not as a blanket ritual. Ordinary checking remains available. Return only the card.\n[{\"task\": {\"id\": \"aggregate-100\", \"seed\": 100, \"family\": \"aggregate\", \"names\": {\"accounts\": \"accounts_100\", \"charges\": \"charges_100\", \"refunds\": \"refunds_100\", \"events\": \"events_100\", \"items\": \"items_100\", \"blocks\": \"blocks_100\"}, \"schema\": \"CREATE TABLE accounts_100(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE charges_100(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, settled INTEGER); CREATE TABLE refunds_100(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, approved INTEGER);\", \"ask\": \"Return one row for EVERY active account: id, net. Net is total settled charges minus total approved refunds, treating missing totals as zero. Include negative and zero net accounts. Multiple charges and refunds can belong to the same account. Order by id.\", \"threshold\": 24, \"cutoff\": 7}, \"model\": \"docker.io/ai/qwen3.8:27b-q4_K_M\", \"memory\": \"\", \"revision\": \"e100ccca02ef2d183a60bd450f043a659fa86cf0\", \"success\": false, \"events\": [{\"content\": \"{\\\"action\\\":\\\"submit\\\",\\\"sql\\\":\\\"SELECT a.id, COALESCE(SUM(CASE WHEN c.settled = 1 THEN c.amount ELSE 0 END), 0) - COALESCE(SUM(CASE WHEN r.approved = 1 THEN r.amount ELSE 0 END), 0) AS net FROM accounts_100 a LEFT JOIN charges_100 c ON a.id = c.account_id LEFT JOIN refunds_100 r ON a.id = r.account_id WHERE a.active = 1 GROUP BY a.id ORDER BY a.id\\\"}\", \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 936, \"completion_tokens\": 119, \"total_tokens\": 1055}, \"model_seconds\": 23.891901917000723, \"checker_seconds\": 0.004490416000408004, \"verification\": {\"success\": false, \"passed\": 0, \"total\": 12, \"checks\": [{\"ok\": false, \"actual\": [[1, -24], [2, 77], [3, 0], [4, -28], [5, 48], [6, -86], [7, 31], [9, -28]], \"expected\": [[1, -24], [2, 77], [3, 6], [4, -14], [5, 31], [6, -60], [7, -3], [9, -2]]}, {\"ok\": false, \"actual\": [[1, -55], [2, 17], [3, -46], [4, -85], [5, -60], [6, -174], [7, 72], [9, -52]], \"expected\": [[1, -55], [2, 17], [3, -27], [4, -11], [5, -15], [6, -91], [7, 24], [9, -2]]}, {\"ok\": false, \"actual\": [[1, -16], [2, 33], [3, -42], [4, 18], [5, 17], [6, -13], [7, -125], [9, -169]], \"expected\": [[1, -16], [2, 33], [3, -21], [4, 18], [5, 17], [6, 47], [7, -45], [9, -63]]}, {\"ok\": false, \"actual\": [[1, -22], [2, 20], [3, -84], [4, -6], [5, -69], [6, 18], [7, 6], [9, 12]], \"expected\": [[1, -22], [2, 20], [3, -49], [4, -35], [5, -23], [6, 18], [7, 19], [9, 12]]}, {\"ok\": false, \"actual\": [[1, -44], [2, 50], [3, 13], [4, 56], [5, -50], [6, -48], [7, 9], [9, 54]], \"expected\": [[1, -44], [2, 50], [3, -26], [4, -55], [5, 3], [6, -33], [7, -17], [9, 18]]}, {\"ok\": false, \"actual\": [[1, -31], [2, 21], [3, -10], [4, -23], [5, 100], [6, 147], [7, -60], [9, 104]], \"expected\": [[1, -31], [2, 21], [3, -9], [4, 22], [5, 25], [6, 31], [7, 18], [9, 57]]}, {\"ok\": false, \"actual\": [[1, -20], [2, 7], [3, -60], [4, -48], [5, 4], [6, -96], [7, -33], [9, -68]], \"expected\": [[1, -20], [2, 7], [3, -20], [4, -28], [5, -15], [6, -74], [7, -11], [9, -6]]}, {\"ok\": false, \"actual\": [[1, -34], [2, 15], [3, 15], [4, 3], [5, 51], [6, -48], [7, 57], [9, -125]], \"expected\": [[1, -34], [2, 15], [3, -12], [4, 3], [5, 13], [6, -33], [7, 19], [9, -45]]}, {\"ok\": false, \"actual\": [[1, -4], [2, 89], [3, -115], [4, -73], [5, -41], [6, 35], [7, -15], [9, -82]], \"expected\": [[1, -4], [2, 89], [3, -60], [4, -35], [5, -15], [6, 17], [7, -63], [9, -51]]}, {\"ok\": false, \"actual\": [[1, -108], [2, 64], [3, 15], [4, 14], [5, 92], [6, 10], [7, 30], [9, 101]], \"expected\": [[1, -108], [2, 64], [3, 5], [4, -6], [5, 23], [6, -2], [7, 10], [9, 25]]}, {\"ok\": false, \"actual\": [[1, -26], [2, 1], [3, -52], [4, -32], [5, 63], [6, -8], [7, -39], [9, -24]], \"expected\": [[1, -26], [2, 1], [3, -30], [4, 14], [5, 38], [6, -15], [7, 8], [9, -3]]}, {\"ok\": false, \"actual\": [[1, -35], [2, 11], [3, 62], [4, -48], [5, 17], [6, -41], [7, 4], [9, 153]], \"expected\": [[1, -35], [2, 11], [3, 86], [4, 15], [5, 6], [6, 4], [7, -10], [9, 58]]}], \"seconds\": 0.004490416000408004}}, {\"task\": {\"id\": \"aggregate-103\", \"seed\": 103, \"family\": \"aggregate\", \"names\": {\"accounts\": \"accounts_103\", \"charges\": \"charges_103\", \"refunds\": \"refunds_103\", \"events\": \"events_103\", \"items\": \"items_103\", \"blocks\": \"blocks_103\"}, \"schema\": \"CREATE TABLE accounts_103(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE charges_103(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, settled INTEGER); CREATE TABLE refunds_103(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, approved INTEGER);\", \"ask\": \"Return one row for EVERY active account: id, net. Net is total settled charges minus total approved refunds, treating missing totals as zero. Include negative and zero net accounts. Multiple charges and refunds can belong to the same account. Order by id.\", \"threshold\": 60, \"cutoff\": 7}, \"model\": \"docker.io/ai/qwen3.8:27b-q4_K_M\", \"memory\": \"\", \"revision\": \"e100ccca02ef2d183a60bd450f043a659fa86cf0\", \"success\": true, \"events\": [{\"content\": \"{\\\"action\\\":\\\"submit\\\",\\\"sql\\\":\\\"SELECT a.id, (SELECT COALESCE(SUM(c.amount),0) FROM charges_103 c WHERE c.account_id=a.id AND c.settled=1) - (SELECT COALESCE(SUM(r.amount),0) FROM refunds_103 r WHERE r.account_id=a.id AND r.approved=1) AS net FROM accounts_103 a WHERE a.active=1 ORDER BY a.id\\\"}\", \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 853, \"completion_tokens\": 98, \"total_tokens\": 951}, \"model_seconds\": 21.957249500001126, \"checker_seconds\": 0.0021067079997010296, \"verification\": {\"success\": true, \"passed\": 12, \"total\": 12, \"checks\": [{\"ok\": true, \"actual\": [[1, -11], [2, 29], [3, 37], [4, 17], [5, 29], [6, -14], [7, 72], [9, 2]], \"expected\": [[1, -11], [2, 29], [3, 37], [4, 17], [5, 29], [6, -14], [7, 72], [9, 2]]}, {\"ok\": true, \"actual\": [[1, -25], [2, 41], [3, 34], [4, 14], [5, 12], [6, -15], [7, -21], [9, 0]], \"expected\": [[1, -25], [2, 41], [3, 34], [4, 14], [5, 12], [6, -15], [7, -21], [9, 0]]}, {\"ok\": true, \"actual\": [[1, -39], [2, 20], [3, 16], [4, -14], [5, 0], [6, -35], [7, 12], [9, -56]], \"expected\": [[1, -39], [2, 20], [3, 16], [4, -14], [5, 0], [6, -35], [7, 12], [9, -56]]}, {\"ok\": true, \"actual\": [[1, -39], [2, 80], [3, -13], [4, -30], [5, 11], [6, -12], [7, 26], [9, -14]], \"expected\": [[1, -39], [2, 80], [3, -13], [4, -30], [5, 11], [6, -12], [7, 26], [9, -14]]}, {\"ok\": true, \"actual\": [[1, -32], [2, 58], [3, -15], [4, -31], [5, 0], [6, -3], [7, -55], [9, -12]], \"expected\": [[1, -32], [2, 58], [3, -15], [4, -31], [5, 0], [6, -3], [7, -55], [9, -12]]}, {\"ok\": true, \"actual\": [[1, -20], [2, 4], [3, -21], [4, -62], [5, -16], [6, 39], [7, -17], [9, -38]], \"expected\": [[1, -20], [2, 4], [3, -21], [4, -62], [5, -16], [6, 39], [7, -17], [9, -38]]}, {\"ok\": true, \"actual\": [[1, -35], [2, 21], [3, -20], [4, -13], [5, -11], [6, -24], [7, -24], [9, -27]], \"expected\": [[1, -35], [2, 21], [3, -20], [4, -13], [5, -11], [6, -24], [7, -24], [9, -27]]}, {\"ok\": true, \"actual\": [[1, -72], [2, 27], [3, 54], [4, 6], [5, 16], [6, -19], [7, 30], [9, -35]], \"expected\": [[1, -72], [2, 27], [3, 54], [4, 6], [5, 16], [6, -19], [7, 30], [9, -35]]}, {\"ok\": true, \"actual\": [[1, -30], [2, 31], [3, -17], [4, -19], [5, -11], [6, -37], [7, 38], [9, -6]], \"expected\": [[1, -30], [2, 31], [3, -17], [4, -19], [5, -11], [6, -37], [7, 38], [9, -6]]}, {\"ok\": true, \"actual\": [[1, -54], [2, 63], [3, 21], [4, -10], [5, -9], [6, -33], [7, 39], [9, 23]], \"expected\": [[1, -54], [2, 63], [3, 21], [4, -10], [5, -9], [6, -33], [7, 39], [9, 23]]}, {\"ok\": true, \"actual\": [[1, -37], [2, 45], [3, 2], [4, 37], [5, -20], [6, 23], [7, -17], [9, 9]], \"expected\": [[1, -37], [2, 45], [3, 2], [4, 37], [5, -20], [6, 23], [7, -17], [9, 9]]}, {\"ok\": true, \"actual\": [[1, -22], [2, 44], [3, 22], [4, -27], [5, 11], [6, -22], [7, -10], [9, 17]], \"expected\": [[1, -22], [2, 44], [3, 22], [4, -27], [5, 11], [6, -22], [7, -10], [9, 17]]}], \"seconds\": 0.0021067079997010296}}]"
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 320,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "endpoint": "https://mac-studio-7hr7.taile71f88.ts.net/engines/v1/chat/completions",
+  "revision": "97c2d1cbda43de113a2a74d6036fcc8396140260",
+  "started": "2026-09-17T13:31:43.110813+00:00",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "SELECT a.id, (SELECT COALESCE(SUM(c.amount),0) FROM charges c WHERE c.account_id=a.id AND c.settled=1) - (SELECT COALESCE(SUM(r.amount),0) FROM refunds r WHERE r.account_id=a.id AND r.approved=1) AS net FROM accounts a WHERE a.active=1 ORDER BY a.id;"
+        }
+      }
+    ],
+    "created": 1789651911,
+    "model": "/Users/macos-user/.docker/models/bundles/sha256/79fa56c07429f64f41950fe2f524937cf3ae9ea9bd3d7ada72170b036ea3cc85/model/model.gguf",
+    "system_fingerprint": "b1-72874f5",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 79,
+      "prompt_tokens": 4127,
+      "total_tokens": 4206,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-qIOJ8ReBllDJZOyyAU5koZlBkt0c6QJ7",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 4127,
+      "prompt_ms": 6461.165,
+      "prompt_per_token_ms": 1.5655839592924643,
+      "prompt_per_second": 638.73929856303,
+      "predicted_n": 79,
+      "predicted_ms": 1380.725,
+      "predicted_per_token_ms": 17.47753164556962,
+      "predicted_per_second": 57.21631751434935
+    }
+  },
+  "seconds": 7.918691208999007
+}
