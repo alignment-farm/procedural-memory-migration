@@ -1,0 +1,60 @@
+{
+  "request": {
+    "model": "docker.io/ai/qwen3:8B-Q4_K_M",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You solve SQLite query tasks. You have an ordinary SQL execution/check tool through this JSON protocol. On every turn output exactly one JSON object, no markdown: {\"action\":\"check\",\"sql\":\"...\"} to run a candidate against the public example and see actual/expected rows, or {\"action\":\"submit\",\"sql\":\"...\"} to finish with a reusable SQL query. You may check or directly submit; at most four turns including final submission. Hidden databases evaluate general correctness. Use the task obligations as authoritative. Any supplied memory is optional procedural advice; correct or ignore it if inappropriate."
+      },
+      {
+        "role": "user",
+        "content": "Task aggregate-400\nSQLite schema:\nCREATE TABLE accounts_400(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE charges_400(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, settled INTEGER); CREATE TABLE refunds_400(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, approved INTEGER);\nObligations: Return one row for EVERY active account: id, net. Net is total settled charges minus total approved refunds, treating missing totals as zero. Include negative and zero net accounts. Multiple charges and refunds can belong to the same account. Order by id.\nPublic example data: {\"accounts_400\": [[402, 1], [471, 1], [37, 1], [769, 1], [418, 1], [834, 1], [375, 1], [230, 0], [652, 1]], \"charges_400\": [[1, 471, 1, 1], [2, 471, 13, 0], [3, 471, 26, 1], [4, 37, 1, 1], [5, 37, 35, 0], [6, 37, 4, 1], [7, 769, 32, 1], [8, 769, 32, 0], [9, 418, 2, 1], [10, 418, 39, 0], [11, 418, 3, 1], [12, 834, 38, 1], [13, 834, 32, 0], [14, 375, 10, 1], [15, 375, 33, 0], [16, 375, 12, 1], [17, 230, 9, 1], [18, 652, 29, 1], [19, 652, 28, 0]], \"refunds_400\": [[1, 402, 26, 1], [2, 402, 2, 0], [3, 37, 23, 1], [4, 37, 32, 0], [5, 769, 4, 1], [6, 769, 25, 0], [7, 769, 31, 1], [8, 769, 39, 1], [9, 418, 16, 1], [10, 418, 27, 0], [11, 418, 34, 1], [12, 418, 26, 1], [13, 834, 35, 1], [14, 375, 30, 1], [15, 375, 37, 0], [16, 230, 9, 1], [17, 652, 34, 1], [18, 652, 26, 0]]}\nWrite a reusable SQL query valid for all databases satisfying this schema and obligations, not just these example rows."
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 1400,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "endpoint": "https://mac-studio-7hr7.taile71f88.ts.net/engines/v1/chat/completions",
+  "revision": "092ae7d95cec2ac583f05c0754a46e9c76de0b11",
+  "started": "2026-09-17T13:35:18.283362+00:00",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"action\":\"check\",\"sql\":\"SELECT a.id, (SUM(CASE WHEN c.settled = 1 THEN c.amount ELSE 0 END) - SUM(CASE WHEN r.approved = 1 THEN r.amount ELSE 0 END)) AS net FROM accounts_400 a LEFT JOIN charges_400 c ON a.id = c.account_id LEFT JOIN refunds_400 r ON a.id = r.account_id WHERE a.active = 1 GROUP BY a.id ORDER BY a.id;\"}"
+        }
+      }
+    ],
+    "created": 1789652121,
+    "model": "/Users/macos-user/.docker/models/bundles/sha256/79fa56c07429f64f41950fe2f524937cf3ae9ea9bd3d7ada72170b036ea3cc85/model/model.gguf",
+    "system_fingerprint": "b1-72874f5",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 107,
+      "prompt_tokens": 936,
+      "total_tokens": 1043,
+      "prompt_tokens_details": {
+        "cached_tokens": 125
+      }
+    },
+    "id": "chatcmpl-3L7TGxwo7p8XrN8cp7zE6zLH07GmjlDd",
+    "timings": {
+      "cache_n": 125,
+      "prompt_n": 811,
+      "prompt_ms": 1208.417,
+      "prompt_per_token_ms": 1.4900332922318125,
+      "prompt_per_second": 671.1259441070425,
+      "predicted_n": 107,
+      "predicted_ms": 1649.499,
+      "predicted_per_token_ms": 15.415878504672897,
+      "predicted_per_second": 64.86818118713622
+    }
+  },
+  "seconds": 2.9365764160011167
+}

@@ -1,0 +1,57 @@
+{
+  "request": {
+    "model": "docker.io/ai/qwen3.8:27b-q4_K_M",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with exactly READY."
+      }
+    ],
+    "max_tokens": 64,
+    "temperature": 0,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "endpoint": "https://mac-studio-7hr7.taile71f88.ts.net/engines/v1/chat/completions",
+  "revision": "f7ca4fc9c07f2d531802caf2ae46ea58d7a375b1",
+  "started": null,
+  "provenance": "Transcribed exactly from initial curl tool response; initial request start not separately captured. Timing is exec tool wall time, unlike harness per-request clocks.",
+  "seconds": 0.459580166,
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "READY"
+        }
+      }
+    ],
+    "created": 1789650333,
+    "model": "/Users/macos-user/.docker/models/bundles/sha256/f04d0a543b642a6f0d06590973b124bc4e8700ddf7e99b669ec6c4ab1ef561ef/model/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "system_fingerprint": "b1-72874f5",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 17,
+      "total_tokens": 19,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-z4AaSWeOMIhIyvElVhiDjoyEuymBmkqs",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 17,
+      "prompt_ms": 442.769,
+      "prompt_per_token_ms": 26.045235294117646,
+      "prompt_per_second": 38.394738565708074,
+      "predicted_n": 2,
+      "predicted_ms": 54.231,
+      "predicted_per_token_ms": 27.1155,
+      "predicted_per_second": 36.87927569102543
+    }
+  }
+}

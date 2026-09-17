@@ -1,0 +1,293 @@
+{
+  "task": {
+    "id": "exclusion-411",
+    "seed": 411,
+    "family": "exclusion",
+    "names": {
+      "accounts": "accounts_411",
+      "charges": "charges_411",
+      "refunds": "refunds_411",
+      "events": "events_411",
+      "items": "items_411",
+      "blocks": "blocks_411"
+    },
+    "schema": "CREATE TABLE accounts_411(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE items_411(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, status TEXT); CREATE TABLE blocks_411(account_id INTEGER);",
+    "ask": "Return id, qualifying_count for active accounts that have at least one item, have NO item whose status is NULL or differs from ok, have NO item with NULL amount or amount < 28, and are not blocked. Each block with a non-NULL account_id blocks that account; NULL block entries block nobody. qualifying_count counts all items for each qualifying account. Order by id.",
+    "threshold": 28,
+    "cutoff": 4
+  },
+  "model": "docker.io/ai/qwen3:8B-Q4_K_M",
+  "memory": "SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts a JOIN items i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items amt WHERE amt.account_id = a.id AND (amt.amount IS NULL OR amt.amount < threshold)) AND NOT EXISTS (SELECT 1 FROM blocks b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id. Use INNER JOIN to enforce at least one item. Explicitly check IS NULL for status and amount to handle NULLs correctly. Block exclusion relies on non-NULL account_id matching; NULL blocks are ignored. Verify threshold comparison direction and NULL handling if results seem off.",
+  "revision": "092ae7d95cec2ac583f05c0754a46e9c76de0b11",
+  "success": true,
+  "events": [
+    {
+      "content": "{\"action\":\"check\",\"sql\":\"SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts_411 a JOIN items_411 i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items_411 bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items_411 amt WHERE amt.account_id = a.id AND (amt.amount IS NULL OR amt.amount < 28)) AND NOT EXISTS (SELECT 1 FROM blocks_411 b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id\"}",
+      "finish_reason": "stop",
+      "feedback": {
+        "ok": true,
+        "actual": [
+          [
+            31,
+            2
+          ],
+          [
+            609,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            31,
+            2
+          ],
+          [
+            609,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "content": "{\"action\":\"submit\",\"sql\":\"SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts_411 a JOIN items_411 i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items_411 bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items_411 amt WHERE amt.account_id = a.id AND (amt.amount IS NULL OR amt.amount < 28)) AND NOT EXISTS (SELECT 1 FROM blocks_411 b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id\"}",
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1841,
+    "completion_tokens": 292,
+    "total_tokens": 2133
+  },
+  "model_seconds": 6.1484830000008515,
+  "checker_seconds": 0.009819541999604553,
+  "verification": {
+    "success": true,
+    "passed": 12,
+    "total": 12,
+    "checks": [
+      {
+        "ok": true,
+        "actual": [
+          [
+            328,
+            3
+          ],
+          [
+            518,
+            3
+          ]
+        ],
+        "expected": [
+          [
+            328,
+            3
+          ],
+          [
+            518,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [],
+        "expected": []
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            713,
+            2
+          ],
+          [
+            798,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            713,
+            2
+          ],
+          [
+            798,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            197,
+            3
+          ],
+          [
+            252,
+            3
+          ]
+        ],
+        "expected": [
+          [
+            197,
+            3
+          ],
+          [
+            252,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            492,
+            4
+          ],
+          [
+            795,
+            4
+          ]
+        ],
+        "expected": [
+          [
+            492,
+            4
+          ],
+          [
+            795,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            27,
+            2
+          ],
+          [
+            630,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            27,
+            2
+          ],
+          [
+            630,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [],
+        "expected": []
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            550,
+            4
+          ],
+          [
+            829,
+            4
+          ]
+        ],
+        "expected": [
+          [
+            550,
+            4
+          ],
+          [
+            829,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            64,
+            2
+          ],
+          [
+            378,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            64,
+            2
+          ],
+          [
+            378,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            332,
+            3
+          ],
+          [
+            470,
+            3
+          ]
+        ],
+        "expected": [
+          [
+            332,
+            3
+          ],
+          [
+            470,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            141,
+            4
+          ],
+          [
+            777,
+            4
+          ]
+        ],
+        "expected": [
+          [
+            141,
+            4
+          ],
+          [
+            777,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [],
+        "expected": []
+      }
+    ],
+    "seconds": 0.00785491699934937
+  }
+}
