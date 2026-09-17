@@ -55,16 +55,18 @@ def run_task(t,model,memory,directory):
 def archive(run):
     return [json.loads(p.read_text()) for p in sorted((ROOT/'runs'/run).glob('*/outcome.json'))]
 
-def build_bank(run,source_run,model):
+def build_bank(run,source_run,model,style="standard"):
     directory=ROOT/'runs'/run;directory.mkdir(parents=True,exist_ok=False)
     experiences=archive(source_run);cards={}
     for family in FAMILIES:
         evidence=[x for x in experiences if x['task']['family']==family]
         # Exact common archive, including final failures; no withheld evaluation records.
         content='From this complete source experience archive, derive concise reusable procedural guidance for future SQLite tasks in the same family. Explain an effective method, pitfalls, and when checking is useful. Do not retain task-specific identifiers or numeric answers. Return plain text, at most 400 words.\n'+json.dumps(evidence)
-        text,record=call([{'role':'user','content':content}],model,directory,family,max_tokens=700)
+        if style=='compact':
+            content='From this complete source experience archive, derive ONE compact procedural card for future SQLite tasks in this family. Use at most 100 words, no headings or recap. Retain the executable query structure and critical edge cases; omit background explanation and task-specific identifiers/answers. Recommend checks only when the experience indicates they resolve uncertainty, not as a blanket ritual. Ordinary checking remains available. Return only the card.\n'+json.dumps(evidence)
+        text,record=call([{'role':'user','content':content}],model,directory,family,max_tokens=320 if style=='compact' else 700)
         cards[family]=text
-    dump(directory/'bank.json',{'model':model,'source_run':source_run,'source_archive_sha256':hashlib.sha256(json.dumps(experiences,sort_keys=True).encode()).hexdigest(),'cards':cards,'revision':revision()})
+    dump(directory/'bank.json',{'model':model,'style':style,'source_run':source_run,'source_archive_sha256':hashlib.sha256(json.dumps(experiences,sort_keys=True).encode()).hexdigest(),'cards':cards,'revision':revision()})
 
 def batch(run,seeds,model,bank_run=None):
     cards=json.loads((ROOT/'runs'/bank_run/'bank.json').read_text())['cards'] if bank_run else None
@@ -75,6 +77,6 @@ def batch(run,seeds,model,bank_run=None):
         for name,memory in arms:run_task(t,model,memory,ROOT/'runs'/run/f'{seed}-{name}')
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('mode',choices=['batch','build']);p.add_argument('--run',required=True);p.add_argument('--model',default=SOURCE);p.add_argument('--start',type=int,default=100);p.add_argument('--count',type=int,default=6);p.add_argument('--bank');p.add_argument('--source-run');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('mode',choices=['batch','build']);p.add_argument('--run',required=True);p.add_argument('--model',default=SOURCE);p.add_argument('--start',type=int,default=100);p.add_argument('--count',type=int,default=6);p.add_argument('--bank');p.add_argument('--source-run');p.add_argument('--style',choices=['standard','compact'],default='standard');a=p.parse_args()
     if a.mode=='batch':batch(a.run,range(a.start,a.start+a.count),a.model,a.bank)
-    else:build_bank(a.run,a.source_run,a.model)
+    else:build_bank(a.run,a.source_run,a.model,a.style)

@@ -1,0 +1,293 @@
+{
+  "task": {
+    "id": "exclusion-205",
+    "seed": 205,
+    "family": "exclusion",
+    "names": {
+      "accounts": "accounts_205",
+      "charges": "charges_205",
+      "refunds": "refunds_205",
+      "events": "events_205",
+      "items": "items_205",
+      "blocks": "blocks_205"
+    },
+    "schema": "CREATE TABLE accounts_205(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE items_205(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, status TEXT); CREATE TABLE blocks_205(account_id INTEGER);",
+    "ask": "Return id, qualifying_count for active accounts that have at least one item, have NO item whose status is NULL or differs from ok, have NO item with NULL amount or amount < 42, and are not blocked. Each block with a non-NULL account_id blocks that account; NULL block entries block nobody. qualifying_count counts all items for each qualifying account. Order by id.",
+    "threshold": 42,
+    "cutoff": 7
+  },
+  "model": "docker.io/ai/qwen3.8:27b-q4_K_M",
+  "memory": "",
+  "revision": "ffe91c902a2995a319e820f8fede615b69d997eb",
+  "success": true,
+  "events": [
+    {
+      "content": "{\"action\":\"check\",\"sql\":\"SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts_205 a JOIN items_205 i ON i.account_id = a.id WHERE a.active = 1 AND a.id NOT IN (SELECT account_id FROM blocks_205 WHERE account_id IS NOT NULL) AND a.id NOT IN (SELECT account_id FROM items_205 WHERE status IS NULL OR status <> 'ok') AND a.id NOT IN (SELECT account_id FROM items_205 WHERE amount IS NULL OR amount < 42) GROUP BY a.id ORDER BY a.id\"}",
+      "finish_reason": "stop",
+      "feedback": {
+        "ok": true,
+        "actual": [
+          [
+            639,
+            2
+          ],
+          [
+            775,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            639,
+            2
+          ],
+          [
+            775,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "content": "{\"action\":\"submit\",\"sql\":\"SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts_205 a JOIN items_205 i ON i.account_id = a.id WHERE a.active = 1 AND a.id NOT IN (SELECT account_id FROM blocks_205 WHERE account_id IS NOT NULL) AND a.id NOT IN (SELECT account_id FROM items_205 WHERE status IS NULL OR status <> 'ok') AND a.id NOT IN (SELECT account_id FROM items_205 WHERE amount IS NULL OR amount < 42) GROUP BY a.id ORDER BY a.id\"}",
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1502,
+    "completion_tokens": 256,
+    "total_tokens": 1758
+  },
+  "model_seconds": 37.81032887500078,
+  "checker_seconds": 0.007912207998742815,
+  "verification": {
+    "success": true,
+    "passed": 12,
+    "total": 12,
+    "checks": [
+      {
+        "ok": true,
+        "actual": [
+          [
+            578,
+            3
+          ],
+          [
+            773,
+            3
+          ]
+        ],
+        "expected": [
+          [
+            578,
+            3
+          ],
+          [
+            773,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [],
+        "expected": []
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            65,
+            2
+          ],
+          [
+            206,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            65,
+            2
+          ],
+          [
+            206,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            566,
+            3
+          ],
+          [
+            892,
+            3
+          ]
+        ],
+        "expected": [
+          [
+            566,
+            3
+          ],
+          [
+            892,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            133,
+            4
+          ],
+          [
+            654,
+            4
+          ]
+        ],
+        "expected": [
+          [
+            133,
+            4
+          ],
+          [
+            654,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            616,
+            2
+          ],
+          [
+            691,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            616,
+            2
+          ],
+          [
+            691,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [],
+        "expected": []
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            176,
+            4
+          ],
+          [
+            324,
+            4
+          ]
+        ],
+        "expected": [
+          [
+            176,
+            4
+          ],
+          [
+            324,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            64,
+            2
+          ],
+          [
+            592,
+            2
+          ]
+        ],
+        "expected": [
+          [
+            64,
+            2
+          ],
+          [
+            592,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            69,
+            3
+          ],
+          [
+            833,
+            3
+          ]
+        ],
+        "expected": [
+          [
+            69,
+            3
+          ],
+          [
+            833,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [
+          [
+            317,
+            4
+          ],
+          [
+            895,
+            4
+          ]
+        ],
+        "expected": [
+          [
+            317,
+            4
+          ],
+          [
+            895,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": true,
+        "actual": [],
+        "expected": []
+      }
+    ],
+    "seconds": 0.006205166999279754
+  }
+}

@@ -1,0 +1,104 @@
+[
+  {
+    "id": "aggregate-500",
+    "seed": 500,
+    "family": "aggregate",
+    "names": {
+      "accounts": "accounts_500",
+      "charges": "charges_500",
+      "refunds": "refunds_500",
+      "events": "events_500",
+      "items": "items_500",
+      "blocks": "blocks_500"
+    },
+    "schema": "CREATE TABLE accounts_500(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE charges_500(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, settled INTEGER); CREATE TABLE refunds_500(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, approved INTEGER);",
+    "ask": "Return one row for EVERY active account: id, net. Net is total settled charges minus total approved refunds, treating missing totals as zero. Include negative and zero net accounts. Multiple charges and refunds can belong to the same account. Order by id.",
+    "threshold": 44,
+    "cutoff": 8
+  },
+  {
+    "id": "temporal-501",
+    "seed": 501,
+    "family": "temporal",
+    "names": {
+      "accounts": "accounts_501",
+      "charges": "charges_501",
+      "refunds": "refunds_501",
+      "events": "events_501",
+      "items": "items_501",
+      "blocks": "blocks_501"
+    },
+    "schema": "CREATE TABLE accounts_501(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE events_501(id INTEGER PRIMARY KEY, account_id INTEGER, at INTEGER NOT NULL, state TEXT NOT NULL);",
+    "ask": "For EVERY active account, return id and the state of its latest event with at <= 6; ties in at are broken by the greatest event id. If it has no eligible event use the text NONE. Inactive accounts are excluded. Events after the cutoff must not affect selection. Order by account id.",
+    "threshold": 55,
+    "cutoff": 6
+  },
+  {
+    "id": "exclusion-502",
+    "seed": 502,
+    "family": "exclusion",
+    "names": {
+      "accounts": "accounts_502",
+      "charges": "charges_502",
+      "refunds": "refunds_502",
+      "events": "events_502",
+      "items": "items_502",
+      "blocks": "blocks_502"
+    },
+    "schema": "CREATE TABLE accounts_502(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE items_502(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, status TEXT); CREATE TABLE blocks_502(account_id INTEGER);",
+    "ask": "Return id, qualifying_count for active accounts that have at least one item, have NO item whose status is NULL or differs from ok, have NO item with NULL amount or amount < 47, and are not blocked. Each block with a non-NULL account_id blocks that account; NULL block entries block nobody. qualifying_count counts all items for each qualifying account. Order by id.",
+    "threshold": 47,
+    "cutoff": 6
+  },
+  {
+    "id": "aggregate-503",
+    "seed": 503,
+    "family": "aggregate",
+    "names": {
+      "accounts": "accounts_503",
+      "charges": "charges_503",
+      "refunds": "refunds_503",
+      "events": "events_503",
+      "items": "items_503",
+      "blocks": "blocks_503"
+    },
+    "schema": "CREATE TABLE accounts_503(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE charges_503(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, settled INTEGER); CREATE TABLE refunds_503(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, approved INTEGER);",
+    "ask": "Return one row for EVERY active account: id, net. Net is total settled charges minus total approved refunds, treating missing totals as zero. Include negative and zero net accounts. Multiple charges and refunds can belong to the same account. Order by id.",
+    "threshold": 25,
+    "cutoff": 5
+  },
+  {
+    "id": "temporal-504",
+    "seed": 504,
+    "family": "temporal",
+    "names": {
+      "accounts": "accounts_504",
+      "charges": "charges_504",
+      "refunds": "refunds_504",
+      "events": "events_504",
+      "items": "items_504",
+      "blocks": "blocks_504"
+    },
+    "schema": "CREATE TABLE accounts_504(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE events_504(id INTEGER PRIMARY KEY, account_id INTEGER, at INTEGER NOT NULL, state TEXT NOT NULL);",
+    "ask": "For EVERY active account, return id and the state of its latest event with at <= 8; ties in at are broken by the greatest event id. If it has no eligible event use the text NONE. Inactive accounts are excluded. Events after the cutoff must not affect selection. Order by account id.",
+    "threshold": 44,
+    "cutoff": 8
+  },
+  {
+    "id": "exclusion-505",
+    "seed": 505,
+    "family": "exclusion",
+    "names": {
+      "accounts": "accounts_505",
+      "charges": "charges_505",
+      "refunds": "refunds_505",
+      "events": "events_505",
+      "items": "items_505",
+      "blocks": "blocks_505"
+    },
+    "schema": "CREATE TABLE accounts_505(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE items_505(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, status TEXT); CREATE TABLE blocks_505(account_id INTEGER);",
+    "ask": "Return id, qualifying_count for active accounts that have at least one item, have NO item whose status is NULL or differs from ok, have NO item with NULL amount or amount < 24, and are not blocked. Each block with a non-NULL account_id blocks that account; NULL block entries block nobody. qualifying_count counts all items for each qualifying account. Order by id.",
+    "threshold": 24,
+    "cutoff": 6
+  }
+]
