@@ -1,0 +1,216 @@
+{
+  "outcomes": {
+    "acquisition-v1/inherit": {
+      "tasks": 6,
+      "successes": 6,
+      "failures": 0,
+      "tokens": 12822,
+      "prompt_tokens": 11840,
+      "completion_tokens": 982,
+      "model_seconds": 176.56607870699918,
+      "checker_seconds": 0.03772199899867701,
+      "actions": 8
+    },
+    "acquisition-v1/none": {
+      "tasks": 6,
+      "successes": 6,
+      "failures": 0,
+      "tokens": 9840,
+      "prompt_tokens": 8828,
+      "completion_tokens": 1012,
+      "model_seconds": 171.45783720799955,
+      "checker_seconds": 0.043870833000255516,
+      "actions": 10
+    },
+    "acquisition-v2/inherit": {
+      "tasks": 6,
+      "successes": 6,
+      "failures": 0,
+      "tokens": 6717,
+      "prompt_tokens": 5991,
+      "completion_tokens": 726,
+      "model_seconds": 73.20936320800138,
+      "checker_seconds": 0.0382757510033116,
+      "actions": 6
+    },
+    "acquisition-v2/none": {
+      "tasks": 6,
+      "successes": 6,
+      "failures": 0,
+      "tokens": 11428,
+      "prompt_tokens": 10304,
+      "completion_tokens": 1124,
+      "model_seconds": 106.39291245799359,
+      "checker_seconds": 0.035689207003088086,
+      "actions": 11
+    },
+    "calibration-v2/inherit": {
+      "tasks": 6,
+      "successes": 6,
+      "failures": 0,
+      "tokens": 12868,
+      "prompt_tokens": 11721,
+      "completion_tokens": 1147,
+      "model_seconds": 27.01268845800041,
+      "checker_seconds": 0.04860179199386039,
+      "actions": 11
+    },
+    "calibration-v2/none": {
+      "tasks": 6,
+      "successes": 2,
+      "failures": 4,
+      "tokens": 24037,
+      "prompt_tokens": 21544,
+      "completion_tokens": 2493,
+      "model_seconds": 57.87018104100025,
+      "checker_seconds": 0.0624458330021298,
+      "actions": 19
+    },
+    "calibration-v2/reconstruct": {
+      "tasks": 6,
+      "successes": 5,
+      "failures": 1,
+      "tokens": 12223,
+      "prompt_tokens": 11081,
+      "completion_tokens": 1142,
+      "model_seconds": 24.879459542000404,
+      "checker_seconds": 0.050049335999574396,
+      "actions": 11
+    },
+    "evaluation-recipient-v2/inherit": {
+      "tasks": 12,
+      "successes": 12,
+      "failures": 0,
+      "tokens": 28153,
+      "prompt_tokens": 25665,
+      "completion_tokens": 2488,
+      "model_seconds": 60.62367933400128,
+      "checker_seconds": 0.10781254099492799,
+      "actions": 24
+    },
+    "evaluation-recipient-v2/none": {
+      "tasks": 12,
+      "successes": 1,
+      "failures": 11,
+      "tokens": 49590,
+      "prompt_tokens": 44142,
+      "completion_tokens": 5448,
+      "model_seconds": 131.55703333099518,
+      "checker_seconds": 0.12947350200192886,
+      "actions": 40
+    },
+    "evaluation-recipient-v2/reconstruct": {
+      "tasks": 12,
+      "successes": 10,
+      "failures": 2,
+      "tokens": 23925,
+      "prompt_tokens": 21621,
+      "completion_tokens": 2304,
+      "model_seconds": 56.37152945600246,
+      "checker_seconds": 0.10045733399965684,
+      "actions": 22
+    },
+    "evaluation-source-v2/inherit": {
+      "tasks": 12,
+      "successes": 12,
+      "failures": 0,
+      "tokens": 12953,
+      "prompt_tokens": 11518,
+      "completion_tokens": 1435,
+      "model_seconds": 135.68765616599921,
+      "checker_seconds": 0.06983716600007028,
+      "actions": 12
+    },
+    "evaluation-source-v2/none": {
+      "tasks": 12,
+      "successes": 12,
+      "failures": 0,
+      "tokens": 20918,
+      "prompt_tokens": 18730,
+      "completion_tokens": 2188,
+      "model_seconds": 184.29790429499917,
+      "checker_seconds": 0.08056579299773148,
+      "actions": 21
+    },
+    "source-v1/none": {
+      "tasks": 6,
+      "successes": 5,
+      "failures": 1,
+      "tokens": 9126,
+      "prompt_tokens": 8017,
+      "completion_tokens": 1109,
+      "model_seconds": 185.62173666700437,
+      "checker_seconds": 0.017704290998153738,
+      "actions": 10
+    }
+  },
+  "all_call_costs": {
+    "acquisition-v1": {
+      "calls": 18,
+      "failed_calls": 0,
+      "total_tokens": 22662,
+      "seconds": 348.0239159149987
+    },
+    "acquisition-v2": {
+      "calls": 17,
+      "failed_calls": 0,
+      "total_tokens": 18145,
+      "seconds": 179.60227566599497
+    },
+    "bank-v1": {
+      "calls": 3,
+      "failed_calls": 0,
+      "total_tokens": 12561,
+      "seconds": 310.1229470010003
+    },
+    "bank-v2": {
+      "calls": 3,
+      "failed_calls": 0,
+      "total_tokens": 11217,
+      "seconds": 109.40546312500192
+    },
+    "calibration-v2": {
+      "calls": 41,
+      "failed_calls": 0,
+      "total_tokens": 49128,
+      "seconds": 109.76232904100107
+    },
+    "evaluation-recipient-v2": {
+      "calls": 86,
+      "failed_calls": 0,
+      "total_tokens": 101668,
+      "seconds": 248.55224212099893
+    },
+    "evaluation-source-v2": {
+      "calls": 33,
+      "failed_calls": 0,
+      "total_tokens": 33871,
+      "seconds": 319.9855604609984
+    },
+    "recipient-probe": {
+      "calls": 1,
+      "failed_calls": 0,
+      "total_tokens": 26,
+      "seconds": 16.006095250000726
+    },
+    "reconstruction-v2": {
+      "calls": 3,
+      "failed_calls": 0,
+      "total_tokens": 11086,
+      "seconds": 21.45912775099896
+    },
+    "source-probe": {
+      "calls": 1,
+      "failed_calls": 0,
+      "total_tokens": 19,
+      "seconds": 0.459580166
+    },
+    "source-v1": {
+      "calls": 10,
+      "failed_calls": 0,
+      "total_tokens": 9126,
+      "seconds": 185.62173666700437
+    }
+  },
+  "caveat": "Missing provider usage on a failed request is unknown, not zero cost; latency is descriptive."
+}

@@ -1,0 +1,75 @@
+{
+  "choices": {
+    "aggregate": "reconstruct",
+    "temporal": "inherit",
+    "exclusion": "reconstruct"
+  },
+  "evaluation": "evaluation-recipient-v2",
+  "arms": {
+    "none": {
+      "tasks": 12,
+      "successes": 1,
+      "use_tokens": 49590,
+      "model_seconds": 131.55703333099518,
+      "incremental_setup_tokens": 0,
+      "setup_plus_use_tokens": 49590
+    },
+    "inherit": {
+      "tasks": 12,
+      "successes": 12,
+      "use_tokens": 28153,
+      "model_seconds": 60.62367933400128,
+      "incremental_setup_tokens": 0,
+      "setup_plus_use_tokens": 28153
+    },
+    "reconstruct": {
+      "tasks": 12,
+      "successes": 10,
+      "use_tokens": 23925,
+      "model_seconds": 56.37152945600246,
+      "incremental_setup_tokens": 11086,
+      "setup_plus_use_tokens": 35011
+    },
+    "policy": {
+      "tasks": 12,
+      "successes": 12,
+      "use_tokens": 23281,
+      "model_seconds": 55.39405570600138,
+      "incremental_setup_tokens": 60214,
+      "setup_plus_use_tokens": 83495
+    }
+  },
+  "reconstruction_cost": {
+    "calls": 3,
+    "tokens": 11086,
+    "seconds": 21.45912775099896,
+    "unknown_usage_calls": 0
+  },
+  "calibration_cost": {
+    "calls": 41,
+    "tokens": 49128,
+    "seconds": 109.76232904100107,
+    "unknown_usage_calls": 0
+  },
+  "linear_token_only_projections": {
+    "none": {
+      "tokens_saved_per_future_task": 2192.4166666666665,
+      "extra_setup_tokens": 60214,
+      "break_even_task_count": 27.46466988483029,
+      "quality_difference_in_evaluation": 11
+    },
+    "inherit": {
+      "tokens_saved_per_future_task": 406.0,
+      "extra_setup_tokens": 60214,
+      "break_even_task_count": 148.31034482758622,
+      "quality_difference_in_evaluation": 0
+    },
+    "reconstruct": {
+      "tokens_saved_per_future_task": 53.666666666666664,
+      "extra_setup_tokens": 49128,
+      "break_even_task_count": 915.4285714285714,
+      "quality_difference_in_evaluation": 2
+    }
+  },
+  "limitations": "Projection is descriptive, assumes future task mix and means recur, and does not equate quality or tokens to money. Source construction is sunk in this incremental comparison, must be reported separately, and is not assumed free in lifetime claims. Policy reuses selected static-arm outcomes; it is not another stochastic run."
+}

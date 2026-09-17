@@ -1,0 +1,7 @@
+test_correct_queries_and_mutants (test_workload.OracleTests.test_correct_queries_and_mutants) ... ok
+test_read_only_and_bad_sql (test_workload.OracleTests.test_read_only_and_bad_sql) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.067s
+
+OK

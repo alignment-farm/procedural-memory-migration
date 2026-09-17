@@ -61,3 +61,19 @@ costs, while reporting unmeasured quantities as unknown.
   and evaluation protocol are locked before seed 400–411 runs. Added paired
   source-model none/inherit controls on the same final tasks to identify a model
   change with facts held fixed. No final outcomes inform the addition or choices.
+- Final recipient evaluation: none 1/12, inherit 12/12, reconstruct 10/12;
+  frozen policy 12/12. Policy use 23,281 tokens versus unchanged 28,153, but
+  all calibration/reconstruction raises policy total to 83,495. No final tuning.
+- Matched final source controls: both arms 12/12; none 20,918 use tokens,
+  inherit 12,953. Same task facts and inherited card are audited across models.
+- Offline verification: all 108 saved submissions replay exactly; pinned model
+  paths, shared archive hashes and pre-evaluation policy lock pass integrity
+  checks. A post-hoc temporal verifier audit shuffles event IDs independently of
+  time, catches a max-ID-only mutant, and leaves all twenty final temporal task
+  success labels unchanged. This is supplementary grader diagnosis, not model
+  search or a replacement primary endpoint.
+- Bounded phase closed with explanatory progress: unchanged inheritance matches
+  the paid policy's quality at lower total token cost over twelve uses. Full
+  harness ledger: 216 calls, 269,509 reported tokens, 108 complete submitted
+  attempts (89 successes, 19 failures). No broader closure or publication
+  acceptance is claimed; no model runs remain active.

@@ -1,7 +1,32 @@
 # Procedural memory migration
 
 Prepared 17 September 2026 as an independent Construct-2 ancillary study.
-**Status: bounded investigation commissioned; no experiments started by preparation.**
+**Status: bounded pilot completed 17 September 2026.** Preparation itself launched
+no runs; the subsequently authorized execution completed 108 task attempts.
+
+## Pilot abstract and evidence
+
+Unchanged procedural guidance was the strongest short-horizon migration choice
+in this controlled SQLite pilot. After preserving a failed first acquisition
+screen, a compact bank maintained source correctness while reducing use tokens
+on fresh tasks. On twelve fresh tasks for Qwen3 8B, unchanged inheritance solved
+12/12, no memory 1/12, and same-archive reconstruction 10/12. A policy chosen
+through paid recipient calibration also solved 12/12, but cost 83,495 tokens
+including setup versus 28,153 for unchanged inheritance. Matched source controls
+held facts and obligations fixed. This is a limited two-model, three-template
+result; longer-horizon payback and broader migration claims remain open.
+
+Read the [pilot report](reports/PILOT_REPORT.md),
+[methods and prospective protocol](protocols/pilot-v1.md),
+[development revision](protocols/compact-revision.md),
+[locked evaluation](protocols/evaluation-lock.md),
+[complete accounting](reports/results.json), and
+[reproduction instructions](reports/REPRODUCE.md).
+All 108 submissions replay against their committed generators; raw requests,
+responses, checks and failures are retained under [runs/](runs/). The final
+policy was locked at `092ae7d` before evaluation. The local report closes this
+bounded phase on explanatory progress, not publication acceptance or broader
+question closure. Original PM1–PM3 expectations below are preserved.
 
 ## Question
 

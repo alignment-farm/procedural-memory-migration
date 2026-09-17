@@ -1,0 +1,32 @@
+{
+  "status": "post-hoc offline verifier audit, not an additional model evaluation or selection set",
+  "change": "Permute event IDs independently of timestamps; compute expected rows in Python with (at,id) ordering. 12 fixtures per query.",
+  "summary": {
+    "evaluation-recipient-v2/inherit": {
+      "tasks": 4,
+      "primary_successes": 4,
+      "stress_successes": 4
+    },
+    "evaluation-recipient-v2/none": {
+      "tasks": 4,
+      "primary_successes": 1,
+      "stress_successes": 1
+    },
+    "evaluation-recipient-v2/reconstruct": {
+      "tasks": 4,
+      "primary_successes": 2,
+      "stress_successes": 2
+    },
+    "evaluation-source-v2/inherit": {
+      "tasks": 4,
+      "primary_successes": 4,
+      "stress_successes": 4
+    },
+    "evaluation-source-v2/none": {
+      "tasks": 4,
+      "primary_successes": 4,
+      "stress_successes": 4
+    }
+  },
+  "changed": []
+}

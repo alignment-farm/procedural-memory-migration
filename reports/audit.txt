@@ -1,0 +1,1 @@
+Audited 216 model calls: pinned weights, same source archive, no held-out build tasks, frozen pre-evaluation policy, and matched final task facts/artifact.
