@@ -83,3 +83,16 @@ Model download is setup/research overhead, not deployment inference.
 Raw run files are never overwritten. Freeze code, task manifest, oracle tests,
 and protocol in Git before execution. Hidden test material must never appear in
 model prompts. All development outcomes remain visible; no final-outcome selection.
+
+## Pre-validation amendment: fixture coverage
+
+After the first two source tasks (aggregate failed; temporal succeeded), a code
+inspection found that account IDs had fixed roles in the generated examples and
+hidden fixtures. This could let task-specific IDs accidentally satisfy the
+checker. Before acquisition validation, strengthen fixture generation with
+randomized IDs and more varied latest-event/qualification patterns. Source-v1
+was already running in its original frozen Python process; retain its exact
+old generator/revision and feedback. All later comparisons use the amended
+same generator for both arms and both recipients. No validation or final results
+were consulted for this change. Source facts remain source experience; no task
+obligations change. This amendment is verifier development, not learned guidance.

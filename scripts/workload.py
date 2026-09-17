@@ -37,7 +37,7 @@ def fixture(t,index):
         events=[]
         for x,_ in accounts:
             if x==1: continue
-            for at in [1,t['cutoff'],t['cutoff'],t['cutoff']+1]:
+            for at in ([t['cutoff']+1] if x==2 and index%2 else [1,t['cutoff'],t['cutoff'],t['cutoff']+1]):
                 events.append((len(events)+1,x,at,rng.choice(['open','closed','paused'])))
         rows[e]=events
         for x,active in accounts:
@@ -55,11 +55,25 @@ def fixture(t,index):
                 if j==0 and x==4: amount=None
                 if j==0 and x==5: amount=t['threshold']-1
                 if j==0 and x==9: amount=t['threshold']
+                if x in (7,9) and index%5==2 and j==0: status='bad'
                 items.append((len(items)+1,x,amount,status))
         rows[i]=items;rows[b]=blocks
         for x,active in accounts:
             its=[z for z in items if z[1]==x]
             if active and its and (x,) not in blocks and all(z[2] is not None and z[2]>=t['threshold'] and z[3]=='ok' for z in its):expected.append([x,len(its)])
+    # Remap every account foreign key consistently; IDs reveal no semantic role.
+    mapping=dict(zip(range(1,10),rng.sample(range(10,900),9)))
+    rows[a]=[(mapping[x],active) for x,active in rows[a]]
+    for table,data in rows.items():
+        if table==a: continue
+        fk=0 if table==b else 1
+        remapped=[]
+        for row in data:
+            row=list(row)
+            if row[fk] is not None: row[fk]=mapping[row[fk]]
+            remapped.append(tuple(row))
+        rows[table]=remapped
+    expected=sorted([[mapping[row[0]],*row[1:]] for row in expected])
     return rows,expected
 
 def execute(t,sql,index):
