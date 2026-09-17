@@ -1,0 +1,48 @@
+[
+  {
+    "file": "upstream-README.md",
+    "origin": "/Users/macos-user/Developer/Projects/alignment-farm/ancillary-studies/procedural-memory-migration/../../construct-2/sources/2026-09-17-independent-study-selection/README.md",
+    "upstream_revision": "52f8eaac42fdfc9ef7333c584bea21a25b40e7ac",
+    "sha256": "dbeb64f9c140aaaf5629af0873ac213d3fa2c54dfc2800e27fd054e45e435e72"
+  },
+  {
+    "file": "upstream-retrieval.json",
+    "origin": "/Users/macos-user/Developer/Projects/alignment-farm/ancillary-studies/procedural-memory-migration/../../construct-2/sources/2026-09-17-independent-study-selection/retrieval.json",
+    "upstream_revision": "52f8eaac42fdfc9ef7333c584bea21a25b40e7ac",
+    "sha256": "86d830ad375da50c85c1d786611688339a4e4dd0e6b2b7dc08e40f98d391aa35"
+  },
+  {
+    "file": "upstream-selected-metadata.xml",
+    "origin": "/Users/macos-user/Developer/Projects/alignment-farm/ancillary-studies/procedural-memory-migration/../../construct-2/sources/2026-09-17-independent-study-selection/selected-metadata.xml",
+    "upstream_revision": "52f8eaac42fdfc9ef7333c584bea21a25b40e7ac",
+    "sha256": "5dfc5b19c84d91008c8128348d69e7bdd7587b1e7cba6a75e3eef41873eb32b6"
+  },
+  {
+    "file": "upstream-upgrade-metadata.xml",
+    "origin": "/Users/macos-user/Developer/Projects/alignment-farm/ancillary-studies/procedural-memory-migration/../../construct-2/sources/2026-09-17-independent-study-selection/upgrade-metadata.xml",
+    "upstream_revision": "52f8eaac42fdfc9ef7333c584bea21a25b40e7ac",
+    "sha256": "8679a6000dd76c207b9bfb295f153ba31110f0b02e8bc8fac147a8ed3a7f4411"
+  },
+  {
+    "file": "upstream-memcollab-metadata.xml",
+    "origin": "/Users/macos-user/Developer/Projects/alignment-farm/ancillary-studies/procedural-memory-migration/../../construct-2/sources/2026-09-17-independent-study-selection/memcollab-metadata.xml",
+    "upstream_revision": "52f8eaac42fdfc9ef7333c584bea21a25b40e7ac",
+    "sha256": "7a570ea6ba0ee405d5fc69acc7074206739c9ab4413d639d963b6125af29dca9"
+  },
+  {
+    "file": "upstream-artifact-inspection.json",
+    "origin": "/Users/macos-user/Developer/Projects/alignment-farm/ancillary-studies/procedural-memory-migration/../../construct-2/sources/2026-09-17-independent-study-selection/artifact-inspection.json",
+    "upstream_revision": "52f8eaac42fdfc9ef7333c584bea21a25b40e7ac",
+    "sha256": "4d63330f4af77df91280cdd97509dd3c3c9fa6a1e97ad8bf980a16194580b8c9"
+  },
+  {
+    "file": "2608.22533v1.html",
+    "url": "https://arxiv.org/html/2608.22533v1",
+    "sha256": "69469d8a56ca4ecde8cd1c2930240ae88441359e13b40d38561bbcc40990c83f"
+  },
+  {
+    "file": "2609.05339v1.html",
+    "url": "https://arxiv.org/html/2609.05339v1",
+    "sha256": "c35224558ae1f9d25afc0e9b1e55ca14019fba32748fa9e3cb22875a86f394c4"
+  }
+]

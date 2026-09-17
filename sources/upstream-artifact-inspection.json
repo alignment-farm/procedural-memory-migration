@@ -1,0 +1,22 @@
+{
+  "repository": "https://github.com/OPPO-PersonalAI/Agent-KB",
+  "revision": "588d6694e743a981179f2e11b47ca3a668e2f1ac",
+  "files": {
+    "README.md": "59fc8452481f6371bb153ac065298cb8d16f56e59a7a3e383ef9df7f977d6b76",
+    "Agent-KB-SWE-bench/scripts/refine.py": "8f6bf3381ca619909da8fa6d9925c5d4bb8fba4976ed9c33645c01fbbb52c4a3",
+    "Agent-KB-GAIA/examples/open_deep_research/agent_kb/agent_kb_service.py": "233d35737b2079c21d2cfb831b12e69a22823e0eafa08ceee65eec84b6820860",
+    "Agent-KB-GAIA/examples/open_deep_research/agent_kb/agent_kb_retrieval.py": "64d74100c32083e596982794bb359dddc53448517bebe6d7c753862e92869bba"
+  },
+  "reading_scope": {
+    "README.md": "setup and service/data contract; initial 180 lines",
+    "Agent-KB-SWE-bench/scripts/refine.py": "complete script",
+    "Agent-KB-GAIA/examples/open_deep_research/agent_kb/agent_kb_service.py": "service/search handlers lines 1\u2013175",
+    "Agent-KB-GAIA/examples/open_deep_research/agent_kb/agent_kb_retrieval.py": "search and ranking lines 110\u2013225"
+  },
+  "observations": [
+    "The GAIA service returns stored plan/experience fields from a configurable hybrid retrieval path.",
+    "The inspected SWE refine helper conditions hint ranking on a task and student output and requires user-supplied file paths.",
+    "These inspected paths do not validate a complete recipient-migration decision or establish the paper gate implementation."
+  ],
+  "limits": "Static reading only. No author imports, dependencies, model calls, service startup or benchmark execution. The snapshot is not verified as the paper experimental revision."
+}
