@@ -52,3 +52,12 @@ costs, while reporting unmeasured quantities as unknown.
   current workload/tool harness. Recipient reconstruction uses source-v1 and the
   identical compact construction prompt. Calibration remains seeds 300–305;
   evaluation remains untouched seeds 400–411.
+- Recipient JSON capability probe succeeded (26 tokens). Reconstruction-v2 used
+  the identical archive and compact prompt, completed without truncation, and
+  retained a literal temporal cutoff. In calibration it correctly changed that
+  cutoff when needed; the observed failure was an unadapted event table name.
+- Calibration: none 2/6, inherit 6/6, reconstruct 5/6. The deterministic rule
+  selected reconstruct for aggregate/exclusion and inherit for temporal. Policy
+  and evaluation protocol are locked before seed 400–411 runs. Added paired
+  source-model none/inherit controls on the same final tasks to identify a model
+  change with facts held fixed. No final outcomes inform the addition or choices.

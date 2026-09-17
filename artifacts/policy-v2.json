@@ -1,0 +1,54 @@
+{
+  "calibration_run": "calibration-v2",
+  "choices": {
+    "aggregate": "reconstruct",
+    "temporal": "inherit",
+    "exclusion": "reconstruct"
+  },
+  "statistics": {
+    "aggregate": {
+      "none": {
+        "successes": 0,
+        "tokens": 8907
+      },
+      "inherit": {
+        "successes": 2,
+        "tokens": 2608
+      },
+      "reconstruct": {
+        "successes": 2,
+        "tokens": 2565
+      }
+    },
+    "temporal": {
+      "none": {
+        "successes": 2,
+        "tokens": 7489
+      },
+      "inherit": {
+        "successes": 2,
+        "tokens": 5978
+      },
+      "reconstruct": {
+        "successes": 1,
+        "tokens": 5582
+      }
+    },
+    "exclusion": {
+      "none": {
+        "successes": 0,
+        "tokens": 7641
+      },
+      "inherit": {
+        "successes": 2,
+        "tokens": 4282
+      },
+      "reconstruct": {
+        "successes": 2,
+        "tokens": 4076
+      }
+    }
+  },
+  "revision": "f540039a36e5dbb669cbefcb2fb8041fb4fbff7c",
+  "rule": "Max successes, min tokens, then none/inherit/reconstruct. All calibration and reconstruction is charged."
+}

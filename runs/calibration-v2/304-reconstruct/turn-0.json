@@ -1,0 +1,60 @@
+{
+  "request": {
+    "model": "docker.io/ai/qwen3:8B-Q4_K_M",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You solve SQLite query tasks. You have an ordinary SQL execution/check tool through this JSON protocol. On every turn output exactly one JSON object, no markdown: {\"action\":\"check\",\"sql\":\"...\"} to run a candidate against the public example and see actual/expected rows, or {\"action\":\"submit\",\"sql\":\"...\"} to finish with a reusable SQL query. You may check or directly submit; at most four turns including final submission. Hidden databases evaluate general correctness. Use the task obligations as authoritative. Any supplied memory is optional procedural advice; correct or ignore it if inappropriate."
+      },
+      {
+        "role": "user",
+        "content": "Task temporal-304\nSQLite schema:\nCREATE TABLE accounts_304(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE events_304(id INTEGER PRIMARY KEY, account_id INTEGER, at INTEGER NOT NULL, state TEXT NOT NULL);\nObligations: For EVERY active account, return id and the state of its latest event with at <= 5; ties in at are broken by the greatest event id. If it has no eligible event use the text NONE. Inactive accounts are excluded. Events after the cutoff must not affect selection. Order by account id.\nPublic example data: {\"accounts_304\": [[636, 1], [594, 1], [699, 1], [188, 1], [677, 1], [133, 1], [203, 1], [401, 0], [107, 1]], \"events_304\": [[1, 594, 1, \"paused\"], [2, 594, 5, \"closed\"], [3, 594, 5, \"open\"], [4, 594, 6, \"paused\"], [5, 699, 1, \"paused\"], [6, 699, 5, \"closed\"], [7, 699, 5, \"closed\"], [8, 699, 6, \"paused\"], [9, 188, 1, \"closed\"], [10, 188, 5, \"closed\"], [11, 188, 5, \"closed\"], [12, 188, 6, \"paused\"], [13, 677, 1, \"paused\"], [14, 677, 5, \"closed\"], [15, 677, 5, \"closed\"], [16, 677, 6, \"paused\"], [17, 133, 1, \"closed\"], [18, 133, 5, \"open\"], [19, 133, 5, \"open\"], [20, 133, 6, \"paused\"], [21, 203, 1, \"open\"], [22, 203, 5, \"paused\"], [23, 203, 5, \"closed\"], [24, 203, 6, \"closed\"], [25, 401, 1, \"paused\"], [26, 401, 5, \"closed\"], [27, 401, 5, \"paused\"], [28, 401, 6, \"open\"], [29, 107, 1, \"closed\"], [30, 107, 5, \"paused\"], [31, 107, 5, \"open\"], [32, 107, 6, \"open\"]]}\nWrite a reusable SQL query valid for all databases satisfying this schema and obligations, not just these example rows.\nOptional procedural memory:\nSELECT a.id, COALESCE((SELECT e.state FROM events e WHERE e.account_id = a.id AND e.at <= 5 ORDER BY e.at DESC, e.id DESC LIMIT 1), 'NONE') AS state FROM accounts a WHERE a.active = 1 ORDER BY a.id;  \n-- Check for cutoff compliance and tie-breaking logic if ambiguous."
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 1400,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "endpoint": "https://mac-studio-7hr7.taile71f88.ts.net/engines/v1/chat/completions",
+  "revision": "f540039a36e5dbb669cbefcb2fb8041fb4fbff7c",
+  "started": "2026-09-17T13:33:30.722578+00:00",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"action\":\"check\",\"sql\":\"SELECT a.id, COALESCE((SELECT e.state FROM events e WHERE e.account_id = a.id AND e.at <= 5 ORDER BY e.at DESC, e.id DESC LIMIT 1), 'NONE') AS state FROM accounts a WHERE a.active = 1 ORDER BY a.id;\"}"
+        }
+      }
+    ],
+    "created": 1789652012,
+    "model": "/Users/macos-user/.docker/models/bundles/sha256/79fa56c07429f64f41950fe2f524937cf3ae9ea9bd3d7ada72170b036ea3cc85/model/model.gguf",
+    "system_fingerprint": "b1-72874f5",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 68,
+      "prompt_tokens": 910,
+      "total_tokens": 978,
+      "prompt_tokens_details": {
+        "cached_tokens": 854
+      }
+    },
+    "id": "chatcmpl-IvZ3m0XY5pCiezDHDagZoOc3vEmi03pG",
+    "timings": {
+      "cache_n": 854,
+      "prompt_n": 56,
+      "prompt_ms": 117.644,
+      "prompt_per_token_ms": 2.1007857142857143,
+      "prompt_per_second": 476.0123763217843,
+      "predicted_n": 68,
+      "predicted_ms": 1379.34,
+      "predicted_per_token_ms": 20.28441176470588,
+      "predicted_per_second": 49.29894007278843
+    }
+  },
+  "seconds": 1.537404874999993
+}

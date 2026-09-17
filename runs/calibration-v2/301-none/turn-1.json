@@ -1,0 +1,68 @@
+{
+  "request": {
+    "model": "docker.io/ai/qwen3:8B-Q4_K_M",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You solve SQLite query tasks. You have an ordinary SQL execution/check tool through this JSON protocol. On every turn output exactly one JSON object, no markdown: {\"action\":\"check\",\"sql\":\"...\"} to run a candidate against the public example and see actual/expected rows, or {\"action\":\"submit\",\"sql\":\"...\"} to finish with a reusable SQL query. You may check or directly submit; at most four turns including final submission. Hidden databases evaluate general correctness. Use the task obligations as authoritative. Any supplied memory is optional procedural advice; correct or ignore it if inappropriate."
+      },
+      {
+        "role": "user",
+        "content": "Task temporal-301\nSQLite schema:\nCREATE TABLE accounts_301(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE events_301(id INTEGER PRIMARY KEY, account_id INTEGER, at INTEGER NOT NULL, state TEXT NOT NULL);\nObligations: For EVERY active account, return id and the state of its latest event with at <= 7; ties in at are broken by the greatest event id. If it has no eligible event use the text NONE. Inactive accounts are excluded. Events after the cutoff must not affect selection. Order by account id.\nPublic example data: {\"accounts_301\": [[898, 1], [463, 1], [113, 1], [249, 1], [866, 1], [772, 1], [218, 1], [385, 0], [704, 1]], \"events_301\": [[1, 463, 1, \"open\"], [2, 463, 7, \"closed\"], [3, 463, 7, \"paused\"], [4, 463, 8, \"closed\"], [5, 113, 1, \"open\"], [6, 113, 7, \"paused\"], [7, 113, 7, \"closed\"], [8, 113, 8, \"open\"], [9, 249, 1, \"open\"], [10, 249, 7, \"open\"], [11, 249, 7, \"paused\"], [12, 249, 8, \"paused\"], [13, 866, 1, \"closed\"], [14, 866, 7, \"paused\"], [15, 866, 7, \"closed\"], [16, 866, 8, \"open\"], [17, 772, 1, \"paused\"], [18, 772, 7, \"paused\"], [19, 772, 7, \"paused\"], [20, 772, 8, \"paused\"], [21, 218, 1, \"closed\"], [22, 218, 7, \"closed\"], [23, 218, 7, \"paused\"], [24, 218, 8, \"paused\"], [25, 385, 1, \"paused\"], [26, 385, 7, \"open\"], [27, 385, 7, \"closed\"], [28, 385, 8, \"open\"], [29, 704, 1, \"open\"], [30, 704, 7, \"paused\"], [31, 704, 7, \"paused\"], [32, 704, 8, \"closed\"]]}\nWrite a reusable SQL query valid for all databases satisfying this schema and obligations, not just these example rows."
+      },
+      {
+        "role": "assistant",
+        "content": "{\"action\":\"check\",\"sql\":\"SELECT accounts_301.id, (SELECT state FROM events_301 WHERE events_301.account_id = accounts_301.id AND events_301.at <= 7 ORDER BY events_301.at DESC, events_301.id DESC LIMIT 1) AS state FROM accounts_301 WHERE active = 1 ORDER BY accounts_301.id;\"}"
+      },
+      {
+        "role": "user",
+        "content": "{\"ok\": false, \"actual\": [[113, \"closed\"], [218, \"paused\"], [249, \"paused\"], [463, \"paused\"], [704, \"paused\"], [772, \"paused\"], [866, \"closed\"], [898, null]], \"expected\": [[113, \"closed\"], [218, \"paused\"], [249, \"paused\"], [463, \"paused\"], [704, \"paused\"], [772, \"paused\"], [866, \"closed\"], [898, \"NONE\"]]}\n3 turns remain. Submit when ready."
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 1400,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "endpoint": "https://mac-studio-7hr7.taile71f88.ts.net/engines/v1/chat/completions",
+  "revision": "f540039a36e5dbb669cbefcb2fb8041fb4fbff7c",
+  "started": "2026-09-17T13:32:34.713582+00:00",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"action\":\"check\",\"sql\":\"SELECT accounts_301.id, COALESCE((SELECT state FROM events_301 WHERE events_301.account_id = accounts_301.id AND events_301.at <= 7 ORDER BY events_301.at DESC, events_301.id DESC LIMIT 1), 'NONE') AS state FROM accounts_301 WHERE active = 1 ORDER BY accounts_301.id;\"}"
+        }
+      }
+    ],
+    "created": 1789651957,
+    "model": "/Users/macos-user/.docker/models/bundles/sha256/79fa56c07429f64f41950fe2f524937cf3ae9ea9bd3d7ada72170b036ea3cc85/model/model.gguf",
+    "system_fingerprint": "b1-72874f5",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 100,
+      "prompt_tokens": 1084,
+      "total_tokens": 1184,
+      "prompt_tokens_details": {
+        "cached_tokens": 830
+      }
+    },
+    "id": "chatcmpl-vkLM3avemi1vbmKT0gp4aeEdcN5M1w3d",
+    "timings": {
+      "cache_n": 830,
+      "prompt_n": 254,
+      "prompt_ms": 426.789,
+      "prompt_per_token_ms": 1.680271653543307,
+      "prompt_per_second": 595.1418616693495,
+      "predicted_n": 100,
+      "predicted_ms": 2091.062,
+      "predicted_per_token_ms": 20.910619999999998,
+      "predicted_per_second": 47.82258966974676
+    }
+  },
+  "seconds": 2.565185333000045
+}

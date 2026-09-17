@@ -1,0 +1,60 @@
+{
+  "request": {
+    "model": "docker.io/ai/qwen3:8B-Q4_K_M",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You solve SQLite query tasks. You have an ordinary SQL execution/check tool through this JSON protocol. On every turn output exactly one JSON object, no markdown: {\"action\":\"check\",\"sql\":\"...\"} to run a candidate against the public example and see actual/expected rows, or {\"action\":\"submit\",\"sql\":\"...\"} to finish with a reusable SQL query. You may check or directly submit; at most four turns including final submission. Hidden databases evaluate general correctness. Use the task obligations as authoritative. Any supplied memory is optional procedural advice; correct or ignore it if inappropriate."
+      },
+      {
+        "role": "user",
+        "content": "Task aggregate-300\nSQLite schema:\nCREATE TABLE accounts_300(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE charges_300(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, settled INTEGER); CREATE TABLE refunds_300(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, approved INTEGER);\nObligations: Return one row for EVERY active account: id, net. Net is total settled charges minus total approved refunds, treating missing totals as zero. Include negative and zero net accounts. Multiple charges and refunds can belong to the same account. Order by id.\nPublic example data: {\"accounts_300\": [[252, 1], [49, 1], [633, 1], [306, 1], [53, 1], [539, 1], [257, 1], [282, 0], [266, 1]], \"charges_300\": [[1, 49, 17, 1], [2, 633, 24, 1], [3, 633, 10, 0], [4, 633, 26, 1], [5, 633, 17, 1], [6, 306, 39, 1], [7, 53, 8, 1], [8, 539, 36, 1], [9, 539, 14, 0], [10, 539, 9, 1], [11, 539, 37, 1], [12, 257, 4, 1], [13, 257, 17, 0], [14, 257, 18, 1], [15, 257, 39, 1], [16, 282, 5, 1], [17, 266, 17, 1], [18, 266, 26, 0], [19, 266, 14, 1]], \"refunds_300\": [[1, 252, 19, 1], [2, 633, 16, 1], [3, 633, 34, 0], [4, 306, 7, 1], [5, 306, 5, 0], [6, 306, 15, 1], [7, 306, 35, 1], [8, 53, 1, 1], [9, 53, 17, 0], [10, 53, 39, 1], [11, 53, 20, 1], [12, 539, 12, 1], [13, 539, 14, 0], [14, 539, 29, 1], [15, 257, 18, 1], [16, 257, 30, 0], [17, 257, 5, 1], [18, 257, 27, 1], [19, 282, 25, 1], [20, 282, 19, 0], [21, 282, 36, 1], [22, 282, 23, 1], [23, 266, 6, 1], [24, 266, 18, 0], [25, 266, 10, 1], [26, 266, 32, 1]]}\nWrite a reusable SQL query valid for all databases satisfying this schema and obligations, not just these example rows.\nOptional procedural memory:\nUse correlated subqueries for independent aggregates to avoid Cartesian product inflation from multiple LEFT JOINs. Structure: SELECT a.id, (SELECT COALESCE(SUM(amount),0) FROM charges WHERE account_id=a.id AND settled=1) - (SELECT COALESCE(SUM(amount),0) FROM refunds WHERE account_id=a.id AND approved=1) AS net FROM accounts WHERE active=1 ORDER BY id. This ensures correct totals when multiple records exist per account. Verify row count matches active accounts if results seem inflated."
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 1400,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "endpoint": "https://mac-studio-7hr7.taile71f88.ts.net/engines/v1/chat/completions",
+  "revision": "f540039a36e5dbb669cbefcb2fb8041fb4fbff7c",
+  "started": "2026-09-17T13:32:27.523603+00:00",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"action\":\"submit\",\"sql\":\"SELECT a.id, (SELECT COALESCE(SUM(amount), 0) FROM charges_300 WHERE account_id = a.id AND settled = 1) - (SELECT COALESCE(SUM(amount), 0) FROM refunds_300 WHERE account_id = a.id AND approved = 1) AS net FROM accounts_300 a WHERE active = 1 ORDER BY a.id;\"}"
+        }
+      }
+    ],
+    "created": 1789651949,
+    "model": "/Users/macos-user/.docker/models/bundles/sha256/79fa56c07429f64f41950fe2f524937cf3ae9ea9bd3d7ada72170b036ea3cc85/model/model.gguf",
+    "system_fingerprint": "b1-72874f5",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 93,
+      "prompt_tokens": 1171,
+      "total_tokens": 1264,
+      "prompt_tokens_details": {
+        "cached_tokens": 1052
+      }
+    },
+    "id": "chatcmpl-4Nq78lJHITEiHMfp0dIMvIYeTVS8CBJH",
+    "timings": {
+      "cache_n": 1052,
+      "prompt_n": 119,
+      "prompt_ms": 209.233,
+      "prompt_per_token_ms": 1.7582605042016808,
+      "prompt_per_second": 568.7439361859745,
+      "predicted_n": 93,
+      "predicted_ms": 1905.237,
+      "predicted_per_token_ms": 20.48641935483871,
+      "predicted_per_second": 48.812824861159
+    }
+  },
+  "seconds": 2.1592310420001013
+}

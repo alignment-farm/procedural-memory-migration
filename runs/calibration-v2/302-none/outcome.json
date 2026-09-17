@@ -1,0 +1,221 @@
+{
+  "task": {
+    "id": "exclusion-302",
+    "seed": 302,
+    "family": "exclusion",
+    "names": {
+      "accounts": "accounts_302",
+      "charges": "charges_302",
+      "refunds": "refunds_302",
+      "events": "events_302",
+      "items": "items_302",
+      "blocks": "blocks_302"
+    },
+    "schema": "CREATE TABLE accounts_302(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE items_302(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, status TEXT); CREATE TABLE blocks_302(account_id INTEGER);",
+    "ask": "Return id, qualifying_count for active accounts that have at least one item, have NO item whose status is NULL or differs from ok, have NO item with NULL amount or amount < 50, and are not blocked. Each block with a non-NULL account_id blocks that account; NULL block entries block nobody. qualifying_count counts all items for each qualifying account. Order by id.",
+    "threshold": 50,
+    "cutoff": 8
+  },
+  "model": "docker.io/ai/qwen3:8B-Q4_K_M",
+  "memory": "",
+  "revision": "f540039a36e5dbb669cbefcb2fb8041fb4fbff7c",
+  "success": false,
+  "events": [
+    {
+      "content": "{\"action\":\"check\",\"sql\":\"SELECT accounts_302.id, COUNT(items_302.id) AS qualifying_count FROM accounts_302 WHERE accounts_302.active = 1 AND accounts_302.id IN (SELECT items_302.account_id FROM items_302 WHERE items_302.status = 'ok' AND items_302.amount IS NOT NULL AND items_302.amount >= 50) AND accounts_302.id NOT IN (SELECT blocks_302.account_id FROM blocks_302 WHERE blocks_302.account_id IS NOT NULL) GROUP BY accounts_302.id ORDER BY accounts_302.id;\"}",
+      "finish_reason": "stop",
+      "feedback": {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            155,
+            2
+          ],
+          [
+            463,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "content": "{\"action\":\"check\",\"sql\":\"SELECT accounts_302.id, COUNT(items_302.id) AS qualifying_count FROM accounts_302 WHERE accounts_302.active = 1 AND accounts_302.id IN (SELECT items_302.account_id FROM items_302 WHERE items_302.status = 'ok' AND items_302.amount IS NOT NULL AND items_302.amount >= 50) AND accounts_302.id NOT IN (SELECT blocks_302.account_id FROM blocks_302 WHERE blocks_302.account_id IS NOT NULL) GROUP BY accounts_302.id ORDER BY accounts_302.id;\"}",
+      "finish_reason": "stop",
+      "feedback": {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            155,
+            2
+          ],
+          [
+            463,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "content": "{\"action\":\"submit\",\"sql\":\"SELECT accounts_302.id, COUNT(items_302.id) AS qualifying_count FROM accounts_302 WHERE accounts_302.active = 1 AND EXISTS (SELECT 1 FROM items_302 WHERE items_302.account_id = accounts_302.id) AND NOT EXISTS (SELECT 1 FROM items_302 WHERE items_302.account_id = accounts_302.id AND (items_302.status IS NULL OR items_302.status != 'ok' OR items_302.amount IS NULL OR items_302.amount < 50)) AND accounts_302.id NOT IN (SELECT blocks_302.account_id FROM blocks_302 WHERE blocks_302.account_id IS NOT NULL) GROUP BY accounts_302.id ORDER BY accounts_302.id;\"}",
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2574,
+    "completion_tokens": 501,
+    "total_tokens": 3075
+  },
+  "model_seconds": 10.481671874000313,
+  "checker_seconds": 0.009614750000764616,
+  "verification": {
+    "success": false,
+    "passed": 0,
+    "total": 12,
+    "checks": [
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            173,
+            3
+          ],
+          [
+            370,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": []
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            23,
+            2
+          ],
+          [
+            823,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            243,
+            3
+          ],
+          [
+            572,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            201,
+            4
+          ],
+          [
+            809,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            36,
+            2
+          ],
+          [
+            639,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": []
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            320,
+            4
+          ],
+          [
+            502,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            726,
+            2
+          ],
+          [
+            854,
+            2
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            299,
+            3
+          ],
+          [
+            528,
+            3
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": [
+          [
+            478,
+            4
+          ],
+          [
+            715,
+            4
+          ]
+        ]
+      },
+      {
+        "ok": false,
+        "error": "no such column: items_302.id",
+        "expected": []
+      }
+    ],
+    "seconds": 0.005998750000799191
+  }
+}

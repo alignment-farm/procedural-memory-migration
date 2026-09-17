@@ -1,0 +1,60 @@
+{
+  "request": {
+    "model": "docker.io/ai/qwen3:8B-Q4_K_M",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You solve SQLite query tasks. You have an ordinary SQL execution/check tool through this JSON protocol. On every turn output exactly one JSON object, no markdown: {\"action\":\"check\",\"sql\":\"...\"} to run a candidate against the public example and see actual/expected rows, or {\"action\":\"submit\",\"sql\":\"...\"} to finish with a reusable SQL query. You may check or directly submit; at most four turns including final submission. Hidden databases evaluate general correctness. Use the task obligations as authoritative. Any supplied memory is optional procedural advice; correct or ignore it if inappropriate."
+      },
+      {
+        "role": "user",
+        "content": "Task aggregate-303\nSQLite schema:\nCREATE TABLE accounts_303(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE charges_303(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, settled INTEGER); CREATE TABLE refunds_303(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, approved INTEGER);\nObligations: Return one row for EVERY active account: id, net. Net is total settled charges minus total approved refunds, treating missing totals as zero. Include negative and zero net accounts. Multiple charges and refunds can belong to the same account. Order by id.\nPublic example data: {\"accounts_303\": [[768, 1], [830, 1], [215, 1], [262, 1], [424, 1], [859, 1], [389, 1], [738, 0], [55, 1]], \"charges_303\": [[1, 830, 25, 1], [2, 830, 26, 0], [3, 830, 34, 1], [4, 215, 13, 1], [5, 215, 26, 0], [6, 262, 22, 1], [7, 262, 33, 0], [8, 262, 20, 1], [9, 424, 37, 1], [10, 424, 12, 0], [11, 859, 10, 1], [12, 859, 32, 0], [13, 859, 28, 1], [14, 389, 21, 1], [15, 389, 19, 0], [16, 389, 19, 1], [17, 389, 17, 1], [18, 738, 26, 1], [19, 738, 7, 0], [20, 738, 29, 1], [21, 738, 36, 1], [22, 55, 14, 1], [23, 55, 8, 0], [24, 55, 25, 1]], \"refunds_303\": [[1, 768, 11, 1], [2, 768, 34, 0], [3, 768, 10, 1], [4, 768, 9, 1], [5, 215, 36, 1], [6, 215, 25, 0], [7, 215, 38, 1], [8, 262, 14, 1], [9, 262, 36, 0], [10, 424, 19, 1], [11, 424, 5, 0], [12, 424, 6, 1], [13, 424, 9, 1], [14, 859, 19, 1], [15, 859, 1, 0], [16, 859, 14, 1], [17, 859, 3, 1], [18, 389, 39, 1], [19, 738, 20, 1], [20, 738, 25, 0], [21, 738, 30, 1], [22, 738, 3, 1], [23, 55, 32, 1], [24, 55, 25, 0], [25, 55, 15, 1], [26, 55, 7, 1]]}\nWrite a reusable SQL query valid for all databases satisfying this schema and obligations, not just these example rows."
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 1400,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "endpoint": "https://mac-studio-7hr7.taile71f88.ts.net/engines/v1/chat/completions",
+  "revision": "f540039a36e5dbb669cbefcb2fb8041fb4fbff7c",
+  "started": "2026-09-17T13:33:18.373757+00:00",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"action\":\"check\",\"sql\":\"SELECT a.id, (SUM(CASE WHEN c.settled = 1 THEN c.amount ELSE 0 END) - SUM(CASE WHEN r.approved = 1 THEN r.amount ELSE 0 END)) AS net FROM accounts_303 a LEFT JOIN charges_303 c ON a.id = c.account_id LEFT JOIN refunds_303 r ON a.id = r.account_id WHERE a.active = 1 GROUP BY a.id ORDER BY a.id;\"}"
+        }
+      }
+    ],
+    "created": 1789652000,
+    "model": "/Users/macos-user/.docker/models/bundles/sha256/79fa56c07429f64f41950fe2f524937cf3ae9ea9bd3d7ada72170b036ea3cc85/model/model.gguf",
+    "system_fingerprint": "b1-72874f5",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 107,
+      "prompt_tokens": 1141,
+      "total_tokens": 1248,
+      "prompt_tokens_details": {
+        "cached_tokens": 1131
+      }
+    },
+    "id": "chatcmpl-ZjfD1llMgGMN1sODelRtpKM0zZZ65j7N",
+    "timings": {
+      "cache_n": 1131,
+      "prompt_n": 10,
+      "prompt_ms": 94.875,
+      "prompt_per_token_ms": 9.4875,
+      "prompt_per_second": 105.40184453227931,
+      "predicted_n": 107,
+      "predicted_ms": 2240.96,
+      "predicted_per_token_ms": 20.943551401869158,
+      "predicted_per_second": 47.74739397401114
+    }
+  },
+  "seconds": 2.378873833999023
+}
