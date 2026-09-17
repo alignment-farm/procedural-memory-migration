@@ -41,3 +41,14 @@ costs, while reporting unmeasured quantities as unknown.
   advertised by the same endpoint. Recipient digest/quantization are retained in
   artifacts/recipient-model.json. No recipient inference has yet occurred at
   the compact revision's lock. Its use depends on the acquisition gate.
+- Compact bank-v2 finished without truncation: cards of 106, 121 and 170 output
+  tokens; build cost 11,217 total tokens. Its archive hash matches bank-v1.
+- Fresh compact acquisition (`acquisition-v2`, seeds 500–505): both arms 6/6,
+  inheritance 6,717 tokens versus no-memory 11,428 (-41.2%). Memory used six
+  actions versus eleven without memory. The prespecified efficiency gate passes.
+  This supports useful source guidance within this workload, not a broad accuracy
+  gain or a direct causal comparison with bank-v1 on different tasks.
+- Proceed to previously unseen Qwen3 8B with unchanged compact bank and same
+  current workload/tool harness. Recipient reconstruction uses source-v1 and the
+  identical compact construction prompt. Calibration remains seeds 300–305;
+  evaluation remains untouched seeds 400–411.

@@ -1,0 +1,34 @@
+{
+  "run": "acquisition-v2",
+  "pass": true,
+  "quality_gate": false,
+  "cost_gate": true,
+  "stats": {
+    "none": {
+      "successes": 6,
+      "tokens": 11428,
+      "ids": [
+        "aggregate-500",
+        "aggregate-503",
+        "exclusion-502",
+        "exclusion-505",
+        "temporal-501",
+        "temporal-504"
+      ]
+    },
+    "inherit": {
+      "successes": 6,
+      "tokens": 6717,
+      "ids": [
+        "aggregate-500",
+        "aggregate-503",
+        "exclusion-502",
+        "exclusion-505",
+        "temporal-501",
+        "temporal-504"
+      ]
+    }
+  },
+  "revision": "106c312fddb43a4da2c1fb8cc8ad43d3c311df12",
+  "interpretation": "Screening only, not statistical significance. Failed gate is acquisition evidence, not transfer failure."
+}
