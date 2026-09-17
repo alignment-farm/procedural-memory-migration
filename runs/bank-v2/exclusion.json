@@ -1,0 +1,56 @@
+{
+  "request": {
+    "model": "docker.io/ai/qwen3.8:27b-q4_K_M",
+    "messages": [
+      {
+        "role": "user",
+        "content": "From this complete source experience archive, derive ONE compact procedural card for future SQLite tasks in this family. Use at most 100 words, no headings or recap. Retain the executable query structure and critical edge cases; omit background explanation and task-specific identifiers/answers. Recommend checks only when the experience indicates they resolve uncertainty, not as a blanket ritual. Ordinary checking remains available. Return only the card.\n[{\"task\": {\"id\": \"exclusion-102\", \"seed\": 102, \"family\": \"exclusion\", \"names\": {\"accounts\": \"accounts_102\", \"charges\": \"charges_102\", \"refunds\": \"refunds_102\", \"events\": \"events_102\", \"items\": \"items_102\", \"blocks\": \"blocks_102\"}, \"schema\": \"CREATE TABLE accounts_102(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE items_102(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, status TEXT); CREATE TABLE blocks_102(account_id INTEGER);\", \"ask\": \"Return id, qualifying_count for active accounts that have at least one item, have NO item whose status is NULL or differs from ok, have NO item with NULL amount or amount < 24, and are not blocked. Each block with a non-NULL account_id blocks that account; NULL block entries block nobody. qualifying_count counts all items for each qualifying account. Order by id.\", \"threshold\": 24, \"cutoff\": 8}, \"model\": \"docker.io/ai/qwen3.8:27b-q4_K_M\", \"memory\": \"\", \"revision\": \"e100ccca02ef2d183a60bd450f043a659fa86cf0\", \"success\": true, \"events\": [{\"content\": \"{\\\"action\\\":\\\"check\\\",\\\"sql\\\":\\\"SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts_102 a JOIN items_102 i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items_102 bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items_102 amt WHERE amt.account_id = a.id AND (amt.amount IS NULL OR amt.amount < 24)) AND NOT EXISTS (SELECT 1 FROM blocks_102 b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id\\\"}\", \"finish_reason\": \"stop\", \"feedback\": {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}}, {\"content\": \"{\\\"action\\\":\\\"submit\\\",\\\"sql\\\":\\\"SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts_102 a JOIN items_102 i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items_102 bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items_102 amt WHERE amt.account_id = a.id AND (amt.amount IS NULL OR amt.amount < 24)) AND NOT EXISTS (SELECT 1 FROM blocks_102 b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id\\\"}\", \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 1404, \"completion_tokens\": 292, \"total_tokens\": 1696}, \"model_seconds\": 47.91170762500042, \"checker_seconds\": 0.002641749997565057, \"verification\": {\"success\": true, \"passed\": 12, \"total\": 12, \"checks\": [{\"ok\": true, \"actual\": [[7, 3], [9, 3]], \"expected\": [[7, 3], [9, 3]]}, {\"ok\": true, \"actual\": [[7, 4], [9, 4]], \"expected\": [[7, 4], [9, 4]]}, {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}, {\"ok\": true, \"actual\": [[7, 3], [9, 3]], \"expected\": [[7, 3], [9, 3]]}, {\"ok\": true, \"actual\": [[7, 4], [9, 4]], \"expected\": [[7, 4], [9, 4]]}, {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}, {\"ok\": true, \"actual\": [[7, 3], [9, 3]], \"expected\": [[7, 3], [9, 3]]}, {\"ok\": true, \"actual\": [[7, 4], [9, 4]], \"expected\": [[7, 4], [9, 4]]}, {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}, {\"ok\": true, \"actual\": [[7, 3], [9, 3]], \"expected\": [[7, 3], [9, 3]]}, {\"ok\": true, \"actual\": [[7, 4], [9, 4]], \"expected\": [[7, 4], [9, 4]]}, {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}], \"seconds\": 0.0022217499990802025}}, {\"task\": {\"id\": \"exclusion-105\", \"seed\": 105, \"family\": \"exclusion\", \"names\": {\"accounts\": \"accounts_105\", \"charges\": \"charges_105\", \"refunds\": \"refunds_105\", \"events\": \"events_105\", \"items\": \"items_105\", \"blocks\": \"blocks_105\"}, \"schema\": \"CREATE TABLE accounts_105(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE items_105(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, status TEXT); CREATE TABLE blocks_105(account_id INTEGER);\", \"ask\": \"Return id, qualifying_count for active accounts that have at least one item, have NO item whose status is NULL or differs from ok, have NO item with NULL amount or amount < 52, and are not blocked. Each block with a non-NULL account_id blocks that account; NULL block entries block nobody. qualifying_count counts all items for each qualifying account. Order by id.\", \"threshold\": 52, \"cutoff\": 6}, \"model\": \"docker.io/ai/qwen3.8:27b-q4_K_M\", \"memory\": \"\", \"revision\": \"e100ccca02ef2d183a60bd450f043a659fa86cf0\", \"success\": true, \"events\": [{\"content\": \"{\\\"action\\\":\\\"check\\\",\\\"sql\\\":\\\"SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts_105 a JOIN items_105 i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items_105 bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items_105 badamt WHERE badamt.account_id = a.id AND (badamt.amount IS NULL OR badamt.amount < 52)) AND NOT EXISTS (SELECT 1 FROM blocks_105 b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id\\\"}\", \"finish_reason\": \"stop\", \"feedback\": {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}}, {\"content\": \"{\\\"action\\\":\\\"submit\\\",\\\"sql\\\":\\\"SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts_105 a JOIN items_105 i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items_105 bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items_105 badamt WHERE badamt.account_id = a.id AND (badamt.amount IS NULL OR badamt.amount < 52)) AND NOT EXISTS (SELECT 1 FROM blocks_105 b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id\\\"}\", \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 1408, \"completion_tokens\": 300, \"total_tokens\": 1708}, \"model_seconds\": 42.034921708000184, \"checker_seconds\": 0.00372491699999955, \"verification\": {\"success\": true, \"passed\": 12, \"total\": 12, \"checks\": [{\"ok\": true, \"actual\": [[7, 3], [9, 3]], \"expected\": [[7, 3], [9, 3]]}, {\"ok\": true, \"actual\": [[7, 4], [9, 4]], \"expected\": [[7, 4], [9, 4]]}, {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}, {\"ok\": true, \"actual\": [[7, 3], [9, 3]], \"expected\": [[7, 3], [9, 3]]}, {\"ok\": true, \"actual\": [[7, 4], [9, 4]], \"expected\": [[7, 4], [9, 4]]}, {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}, {\"ok\": true, \"actual\": [[7, 3], [9, 3]], \"expected\": [[7, 3], [9, 3]]}, {\"ok\": true, \"actual\": [[7, 4], [9, 4]], \"expected\": [[7, 4], [9, 4]]}, {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}, {\"ok\": true, \"actual\": [[7, 3], [9, 3]], \"expected\": [[7, 3], [9, 3]]}, {\"ok\": true, \"actual\": [[7, 4], [9, 4]], \"expected\": [[7, 4], [9, 4]]}, {\"ok\": true, \"actual\": [[7, 2], [9, 2]], \"expected\": [[7, 2], [9, 2]]}], \"seconds\": 0.002081624999846099}}]"
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 320,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    }
+  },
+  "endpoint": "https://mac-studio-7hr7.taile71f88.ts.net/engines/v1/chat/completions",
+  "revision": "e8ebfaa0c4138c756c6580504da6824344c54b35",
+  "started": "2026-09-17T13:25:58.859868+00:00",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts a JOIN items i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items amt WHERE amt.account_id = a.id AND (amt.amount IS NULL OR amt.amount < threshold)) AND NOT EXISTS (SELECT 1 FROM blocks b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id. Use INNER JOIN to enforce at least one item. Explicitly check IS NULL for status and amount to handle NULLs correctly. Block exclusion relies on non-NULL account_id matching; NULL blocks are ignored. Verify threshold comparison direction and NULL handling if results seem off."
+        }
+      }
+    ],
+    "created": 1789651585,
+    "model": "/Users/macos-user/.docker/models/bundles/sha256/f04d0a543b642a6f0d06590973b124bc4e8700ddf7e99b669ec6c4ab1ef561ef/model/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "system_fingerprint": "b1-72874f5",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 170,
+      "prompt_tokens": 2568,
+      "total_tokens": 2738,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-nrtTn90zGZmIndMhQvefB3ac73jBYKXq",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 2568,
+      "prompt_ms": 14159.544,
+      "prompt_per_token_ms": 5.513841121495327,
+      "prompt_per_second": 181.36177266725537,
+      "predicted_n": 170,
+      "predicted_ms": 12043.338,
+      "predicted_per_token_ms": 70.84316470588234,
+      "predicted_per_second": 14.11568785996042
+    }
+  },
+  "seconds": 26.314608959000907
+}

@@ -1,0 +1,12 @@
+{
+  "model": "docker.io/ai/qwen3.8:27b-q4_K_M",
+  "style": "compact",
+  "source_run": "source-v1",
+  "source_archive_sha256": "9410fcd30331f14e2f1ffad790559b579485b51b408f17d621c53c252d912eee",
+  "cards": {
+    "aggregate": "Use correlated subqueries for independent aggregates to avoid Cartesian product inflation from multiple LEFT JOINs. Structure: SELECT a.id, (SELECT COALESCE(SUM(amount),0) FROM charges WHERE account_id=a.id AND settled=1) - (SELECT COALESCE(SUM(amount),0) FROM refunds WHERE account_id=a.id AND approved=1) AS net FROM accounts WHERE active=1 ORDER BY id. This ensures correct totals when multiple records exist per account. Verify row count matches active accounts if results seem inflated.",
+    "temporal": "SELECT a.id, COALESCE((SELECT e.state FROM events e WHERE e.account_id = a.id AND e.at <= cutoff ORDER BY e.at DESC, e.id DESC LIMIT 1), 'NONE') AS state FROM accounts a WHERE a.active = 1 ORDER BY a.id. Filter active accounts only. Use correlated subquery for latest eligible event. Apply cutoff filter (at <= cutoff) before ordering. Break ties by greatest event id. Use COALESCE to return 'NONE' for accounts without eligible events. Ensure events after cutoff are excluded from selection. Order results by account id.",
+    "exclusion": "SELECT a.id, COUNT(i.id) AS qualifying_count FROM accounts a JOIN items i ON i.account_id = a.id WHERE a.active = 1 AND NOT EXISTS (SELECT 1 FROM items bad WHERE bad.account_id = a.id AND (bad.status IS NULL OR bad.status <> 'ok')) AND NOT EXISTS (SELECT 1 FROM items amt WHERE amt.account_id = a.id AND (amt.amount IS NULL OR amt.amount < threshold)) AND NOT EXISTS (SELECT 1 FROM blocks b WHERE b.account_id = a.id) GROUP BY a.id ORDER BY a.id. Use INNER JOIN to enforce at least one item. Explicitly check IS NULL for status and amount to handle NULLs correctly. Block exclusion relies on non-NULL account_id matching; NULL blocks are ignored. Verify threshold comparison direction and NULL handling if results seem off."
+  },
+  "revision": "e8ebfaa0c4138c756c6580504da6824344c54b35"
+}

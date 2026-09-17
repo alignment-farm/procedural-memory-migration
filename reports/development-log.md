@@ -32,3 +32,12 @@ model tokens, energy and hardware compute are unavailable here; do not describe
 this as a full dollar/energy cost account. Deployment comparisons must include
 all measured source construction, migration calibration/reconstruction and use
 costs, while reporting unmeasured quantities as unknown.
+- First acquisition screen (`acquisition-v1`): 6/6 correct in each arm. Inherited
+  guidance cost 12,822 tokens versus 9,840 without memory (+30.3%), despite two
+  fewer model actions. Bank-v1 cost 12,561 tokens, with the exclusion card reaching
+  its 700-token cap in the concluding recap. Recorded gate failed, and the
+  originally allowed single revision was frozen in protocols/compact-revision.md.
+- Qwen3 8B download completed, 5.03 GB transferred; both model IDs are now
+  advertised by the same endpoint. Recipient digest/quantization are retained in
+  artifacts/recipient-model.json. No recipient inference has yet occurred at
+  the compact revision's lock. Its use depends on the acquisition gate.
