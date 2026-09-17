@@ -96,3 +96,11 @@ old generator/revision and feedback. All later comparisons use the amended
 same generator for both arms and both recipients. No validation or final results
 were consulted for this change. Source facts remain source experience; no task
 obligations change. This amendment is verifier development, not learned guidance.
+
+The same pre-validation audit also makes the temporal schema's generated-data
+invariant explicit: event time and state are NOT NULL. Otherwise a COALESCE
+solution could incorrectly replace a real NULL state while passing fixtures
+that never generate one. Original source schemas and scores remain preserved;
+subsequent temporal tasks explicitly specify this invariant identically across
+arms/models. This limits the workload; it does not establish arbitrary nullable
+state handling. No recipient or validation output motivated this schema fix.

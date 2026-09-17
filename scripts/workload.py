@@ -12,7 +12,7 @@ def task(seed):
         schema=f'CREATE TABLE {a}(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE {c}(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, settled INTEGER); CREATE TABLE {r}(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, approved INTEGER);'
         ask=f'Return one row for EVERY active account: id, net. Net is total settled charges minus total approved refunds, treating missing totals as zero. Include negative and zero net accounts. Multiple charges and refunds can belong to the same account. Order by id.'
     elif family=='temporal':
-        schema=f'CREATE TABLE {a}(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE {e}(id INTEGER PRIMARY KEY, account_id INTEGER, at INTEGER, state TEXT);'
+        schema=f'CREATE TABLE {a}(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE {e}(id INTEGER PRIMARY KEY, account_id INTEGER, at INTEGER NOT NULL, state TEXT NOT NULL);'
         ask=f'For EVERY active account, return id and the state of its latest event with at <= {cutoff}; ties in at are broken by the greatest event id. If it has no eligible event use the text NONE. Inactive accounts are excluded. Events after the cutoff must not affect selection. Order by account id.'
     else:
         schema=f'CREATE TABLE {a}(id INTEGER PRIMARY KEY, active INTEGER); CREATE TABLE {i}(id INTEGER PRIMARY KEY, account_id INTEGER, amount INTEGER, status TEXT); CREATE TABLE {b}(account_id INTEGER);'
