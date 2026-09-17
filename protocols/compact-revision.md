@@ -32,3 +32,9 @@ All first-bank construction/validation and compact development costs remain
 experimental search costs. For an already fixed compact method, source experience
 and compact construction are its build costs; show both this accounting and
 actual total experiment spend, never silently erase the failed first bank.
+
+Before recipient task runs, adjust three-arm ordering to rotate by each block of
+three tasks rather than seed modulo three. Since family itself cycles with seed,
+the latter would confound family and arm order. Calibration has two orders per
+family; evaluation rotates through three orders and repeats the first. No timing
+claim is planned; all calls remain serial and task chats independent.

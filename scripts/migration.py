@@ -6,7 +6,7 @@ from workload import task,FAMILIES
 def compare(run,model,start,count,inherit,reconstruct):
     banks={name:json.loads((ROOT/'runs'/bank/'bank.json').read_text())['cards'] for name,bank in [('inherit',inherit),('reconstruct',reconstruct)]}
     for seed in range(start,start+count):
-        t=task(seed);arms=['none','inherit','reconstruct']; shift=seed%3;arms=arms[shift:]+arms[:shift]
+        t=task(seed);arms=['none','inherit','reconstruct']; shift=((seed-start)//3)%3;arms=arms[shift:]+arms[:shift]
         for arm in arms:run_task(t,model,'' if arm=='none' else banks[arm][t['family']],ROOT/'runs'/run/f'{seed}-{arm}')
 
 def select(calibration,output):
